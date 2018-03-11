@@ -1,0 +1,16 @@
+video : https://www.youtube.com/watch?v=H-qGmSE7pwo
+docker --version 
+docker pull registry:2.0 
+docker run -d -p 5000:5000 registry:2.0 
+docker images 
+docker tag ubuntu:14.10 localhost:5000/ubuntu:14.10 
+(docker tag ubuntu:14.10 146.71.92.135:5000/ubuntu:14.10 )
+docker push localhost:5000/ubuntu:14.10
+
+
+
+
+nano /etc/docker/daemon.json
+{
+    "insecure-registries": ["146.71.92.135:5000"]
+}
