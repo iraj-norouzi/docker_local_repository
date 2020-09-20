@@ -10,3 +10,24 @@ mkdir  -p certs.d/repo.docker.local
 cd
 cp certs/domain.crt /etc/docker/certs.d/repo.docker.local/ca.crt
 docker run -p 443:5000 -d --name secure_registry -v $(pwd)/certs:/certs -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/domain.crt -e REGISTRY_HTTP_TLS_KEY=/certs/domain.key registry
+
+
+###+AUTH####
+cd
+mkdir auth
+htpasswd -bnB admin admin >auth/htpasswd
+cat auth/htpasswd
+docker container run -d \
+-p 443:5000\
+--name registery_secure_auth \
+-v "$(pwd)/auth:/auth \
+-v $(pwd)"/certs:/certs \
+-e "REGISTERY_AUTH=htpasswd" \
+-e "REGISTERY_AUTH_HTPASSWD_RELAM=Registery Relam" \
+-e REGISTERY_AUTH_HTPASSWD_PATH=/auth/htpasswd \
+-e REGISTERY_HTTP_TLS_CERTIFICATE=/certs/domain.crt \
+-e REGISTERY_HTTP_TLS_KEY=/certs/domain.key \
+registery
+####
+
+
