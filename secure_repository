@@ -1,7 +1,7 @@
 hostnamectl set-hostname repo.docker.local
 rm -f /etc/docker/daemon.json
 cd
-Edit your /etc/ssl/openssl.cnf  add subjectAltName = IP:192.168.2.107 in [v3_ca] section.
+#Edit your /etc/ssl/openssl.cnf  add subjectAltName = IP:192.168.2.107 in [v3_ca] section.
 mkdir certs
 openssl req -newkey rsa:4096 -nodes -sha256 -keyout certs/domain.key -x509 -days 365 -out certs/domain.crt #set hostname (hostname = repo.docker.local)
 cd /etc/docker
