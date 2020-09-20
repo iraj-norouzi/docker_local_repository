@@ -8,6 +8,5 @@ cd /etc/docker
 
 mkdir  -p certs.d/repo.docker.local:5000
 cd
-cp certs/domain.crt /etc/docker/certs.d/repo.docker.local:5000/ca.crt
-docker run -p 5000:5000 -d --name secure_registry -v $(pwd)/certs:/certs -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/domain.crt -e REGISTRY_HTTP_TLS_KEY=/certs/domain.key registry
-
+cp certs/domain.crt /etc/docker/certs.d/repo.docker.local/ca.crt
+docker run -p 443:5000 -d --name secure_registry -v $(pwd)/certs:/certs -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/domain.crt -e REGISTRY_HTTP_TLS_KEY=/certs/domain.key registry
